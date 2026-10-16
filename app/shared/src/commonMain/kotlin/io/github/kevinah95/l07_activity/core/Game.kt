@@ -62,11 +62,13 @@ class Game : GameSession {
 
         // TODO Paso 3.1: Integrar posición según velocidad (x += vx * d, y += vy * d)
         for (obj in currentObjects) {
-            // obj.x += obj.vx * d
-            // obj.y += obj.vy * d
+            obj.x += obj.vx * d
+            obj.y += obj.vy * d
 
             // TODO Paso 3.2: Aplicar aceleración de gravedad hacia abajo si tiene masa y está en el aire
-            // if (obj.mass > 0 && obj.y > 0) { obj.vy -= obj.mass * d }
+            if (obj.mass > 0.0 && obj.y > stage.floor) {
+                obj.vy -= obj.mass * d
+            }
 
             // TODO Paso 3.3: Restricción contra el suelo y techo (rebote y fricción)
             val lower = stage.floor
@@ -124,7 +126,17 @@ class Game : GameSession {
      * 7. Retornar true.
      */
     fun castSpell(): Boolean {
-        // TODO: Completar la lógica de disparo
-        return false
+        if (spell.casts <= 0) {
+            return false
+        }
+
+        spell.casts -= 1
+        val projectile = createSpell()
+        val direction = vectorFromAngle(spell.targetAngle)
+        projectile.vx = direction.x * spell.basePower
+        projectile.vy = direction.y * spell.basePower
+        val spawnPosition = player.center()
+        spawn(projectile, spawnPosition.x, spawnPosition.y)
+        return true
     }
 }
