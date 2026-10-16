@@ -17,10 +17,10 @@ object Tags {
     // - PLAYER: 1 shl 4 (16)
     // - UNDEAD: 1 shl 5 (32)
 
-    const val CORPSE: Int = 0
-    const val LIVING: Int = 0
-    const val SPELL: Int = 0
-    const val MOBILE: Int = 0
-    const val PLAYER: Int = 0
-    const val UNDEAD: Int = 0
+    const val CORPSE: Int = 1
+    const val LIVING: Int = 2
+    const val SPELL: Int = 4
+    const val MOBILE: Int = 8
+    const val PLAYER: Int = 16
+    const val UNDEAD: Int = 32
 }
